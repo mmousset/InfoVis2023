@@ -13,13 +13,17 @@
             svg.selectAll("rect")
                 .data(data)
                 .enter()
+                .append("text")
+                .attr("dx", function (d) { return d.x })
+                .attr("dy", function (d) { return d.y - 10})
+                .text(function(d) { return d.label; })
                 .append("rect")
                 .attr("x", function (d) { return d.x; })
                 .attr("y", function (d) { return d.y; })
                 .attr("width", function (d) { return d.width; })
                 .attr("height", function (d) { return d.height; })
+                .attr("label", function(d){ return d.label; })
                 .style("fill", function(d){ return d.color; });
-                .style("label", function(d){ return d.label; });
         }
     </script>
 </body>
