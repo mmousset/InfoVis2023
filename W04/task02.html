@@ -9,7 +9,6 @@
     <script>
         var svg = d3.select("body").append("svg");
         d3.csv("https://mmousset.github.io/InfoVis2023/W04/w04_task2.csv", draw);
-        // d3.csv("https://mmousset.github.io/InfoVis2023/test.csv", draw);
         function draw(data) {
             svg.selectAll("rect")
                 .data(data)
