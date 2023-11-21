@@ -20,9 +20,9 @@ class ScatterPlot {
             .attr('height', self.config.height);
         self.chart = self.svg.append('g')
             .attr('transform',
-                `translate(${self.config.margin.left + marginTitles}, ${self.config.margin.top + marginTitles})`);
-        self.inner_width = self.config.width - self.config.margin.left - self.config.margin.right - marginTitles;
-        self.inner_height = self.config.height - self.config.margin.top - self.config.margin.bottom - marginTitles*2;
+                `translate(${self.config.margin.left}, ${self.config.margin.top})`);
+        self.inner_width = self.config.width - self.config.margin.left - self.config.margin.right;
+        self.inner_height = self.config.height - self.config.margin.top - self.config.margin.bottom;
 
         self.xscale = d3.scaleLinear()
             .range([0, self.inner_width]);
