@@ -46,11 +46,6 @@ class barChart {
         const xmin = d3.min(self.data, d => d.value);
         const xmax = d3.max(self.data, d => d.value);
         self.xscale.domain([xmin, xmax]);
-        // const ymin = d3.min(self.data, d => d.label);
-        // const ymax = d3.max(self.data, d => d.label);
-        // const ymin = 50;
-        // const ymax = 50;
-        // self.yscale.domain([ymin, ymax]);
         self.yscale = d3.scaleBand()
             .domain(self.data.map(d => d.label))
             .range([0, self.inner_height])
