@@ -55,9 +55,11 @@ class barChart {
 
     render() {
         let self = this;
-        
-        self.chart.selectAll("rect").data(self.data).enter()
-            .append("rect")
+
+        self.chart.selectAll("rect").data(self.data)
+            .join("rect")
+            .transition()
+            .duration(1000)
             .attr("x", 0)
             .attr("y", d => self.yscale(d.label))
             .attr("width", d => self.xscale(d.value))
@@ -81,5 +83,11 @@ d3.csv("https://mmousset.github.io/InfoVis2023/W08/data.csv")
         };
         const bar_chart = new barChart(config, data);
         bar_chart.update();
+
+        d3.select('#reverse')
+            .on('click', d => {
+                data.reverse();
+                bar_chart.update();
+            });
     })
-    .catch(error => { console.log(error); });    
+    .catch(error => { console.log(error); });
