@@ -46,11 +46,11 @@ class barChart {
         const xmin = 0;
         const xmax = d3.max(self.data, d => d.value);
         self.xscale.domain([xmin, xmax]);
-        self.yscale = d3.scaleBand()
-            .domain(self.data.map(d => d.label))
-            .range([0, self.inner_height])
-            .paddingInner(0.1);
+
+        self.yscale.domain(self.data.map(d => d.label));
+
         self.render();
+
     }
 
     render() {
@@ -87,6 +87,18 @@ d3.csv("https://mmousset.github.io/InfoVis2023/W08/data.csv")
         d3.select('#reverse')
             .on('click', d => {
                 data.reverse();
+                bar_chart.update();
+            });
+        
+        d3.select('#ascend')
+            .on('click', d => {
+                data.sort((a, b) => d3.ascending(a.value, b.value));
+                bar_chart.update();
+            });
+
+        d3.select('#descend')
+            .on('click', d => {
+                data.sort((a, b) => d3.descending(a.value, b.value));
                 bar_chart.update();
             });
     })

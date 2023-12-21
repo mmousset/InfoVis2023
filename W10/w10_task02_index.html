@@ -1,0 +1,41 @@
+<html>
+
+<head>
+    <title>W10: Task 02</title>
+
+    <style>
+        #tooltip {
+            position: absolute;
+            opacity: 0;
+            background-color: white;
+            /* Add a background color to make the text visible */
+            border: 1px solid black;
+            /* Add a border */
+            padding: 10px;
+            /* Add some padding */
+            border-radius: 5px;
+            /* Optional: Add a border radius for rounded corners */
+        }
+
+        #tooltip .title {
+            color: grey;
+            /* Make the title grey */
+            font-weight: bold;
+            /* Optional: Make the title bold */
+        }
+
+        #tooltip .coordinates {
+            color: black;
+            /* Make the coordinates black */
+        }
+    </style>
+</head>
+
+<body>
+    <div id="tooltip"></div>
+    <svg id="drawing_region"></svg>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="w10_task02_main.js"></script>
+</body>
+
+</html>
