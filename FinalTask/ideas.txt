@@ -1,0 +1,59 @@
+1 - Salary
+
+- Salary considering the country 
+- Salary considering the work setting 
+- Salary considering the company size 
+- Salary considering the experience  
+
+Abscisse: Jobs
+Ordonnee: Salary 
+Selector: Country/Experience/CompanySize/...
+
+2 - Popularity
+
+- Most popular job considering the country 
+- Most popular job considering the work setting (Hybrid/In-person/Remote)
+- Most popular job considering the company size
+- Most popular job considering the experience
+
+Abscisse: Jobs
+Ordonnee: Job counter 
+Selector: Country/Experience/CompanySize/...
+
+3 - Evolution
+
+- Salary evolution through the years
+- 
+
+
+Interaction: 
+Click the highest salary job in France: 
+    -> Show the salary for this job in other countries (involves a graph with salary for each job in every country)
+    -> Show the number of person with this position
+Click the highest salary job in Remote:
+    -> Show the salary for this job in other countries
+    -> Show the salary for this job in other work setting
+
+work_year	
+job_title	
+job_category	
+salary_currency	salary	
+salary_in_usd	
+employee_residence	
+experience_level	
+employment_type	
+work_setting	
+company_location	
+company_size
+
+Graph avec le nombre de personne par experience cliquable
+Graph avec le salaire par experience
+
+
+I have a csv containing information on data science salaries aswell as work experience and other factors. 
+Using the framework D3.js I want two interactive graph: One showing the number of people with a certain type of work experience under the form of barchart and a second one using showing the salary distribution based on the work experience. 
+I would like that when I click the bar chart only the work experience clicked apear on the second graph and goes back to normal if i click the barchart again
+
+
+
+
