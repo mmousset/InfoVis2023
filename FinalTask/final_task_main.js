@@ -34,5 +34,15 @@ d3.csv("https://mmousset.github.io/InfoVis2023/FinalTask/ds_salaries.csv")
 
         pie_chart = new pieChart(config_pieChart, input_data);
         pie_chart.update();
+
+        var config_lineChart = {
+            parent: '#drawing_region_lineChart',
+            width: 512,
+            height: 256,
+            margin: { top: 20, right: 20, bottom: 20, left: 20 }
+        };
+
+        lineChart = new lineChart(config_lineChart, input_data);
+        lineChart.update();
     })
     .catch(error => { console.log(error); });

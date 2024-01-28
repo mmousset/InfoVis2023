@@ -21,7 +21,7 @@ class multiBarChart {
             .attr('transform',
                 `translate(${self.config.margin.left + marginTicks}, ${self.config.margin.top})`);
         self.inner_width = self.config.width - self.config.margin.left - self.config.margin.right - marginTicks;
-        self.inner_height = self.config.height - self.config.margin.top - self.config.margin.bottom - self.config.margin.top - 20;
+        self.inner_height = self.config.height - 2*self.config.margin.top - 2*self.config.margin.bottom;
 
         self.xscale = d3.scaleBand()
             .range([self.inner_width, 0])
