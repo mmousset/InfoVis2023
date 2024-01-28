@@ -20,7 +20,7 @@ class lineChart {
         self.chart = self.svg.append('g')
             .attr('transform', `translate(${self.config.margin.left + marginTicks}, ${self.config.margin.top})`);
         self.inner_width = self.config.width - self.config.margin.left - self.config.margin.right - marginTicks;
-        self.inner_height = self.config.height - 2*self.config.margin.top - 2*self.config.margin.bottom;
+        self.inner_height = self.config.height - 2 * self.config.margin.top - 2 * self.config.margin.bottom;
 
         self.xscale = d3.scalePoint()
             .range([0, self.inner_width])
@@ -46,6 +46,8 @@ class lineChart {
             ([key, value]) => ({
                 key, values: { work_year: key, salary: d3.mean(value, d => d.salary_in_usd) }
             }));
+            
+        self.nestedData.sort((a, b) => d3.ascending(a.key, b.key));
 
         self.xscale.domain([...new Set(self.data.map(d => d.work_year))].sort(d3.ascending));
         self.yscale.domain([0, d3.max(self.nestedData, d => d.values.salary)]);
@@ -70,11 +72,11 @@ class lineChart {
 
         self.chart.selectAll(".dot")
             .data(self.nestedData)
-            .enter().append("circle")  
-            .attr("class", "dot")  
+            .enter().append("circle")
+            .attr("class", "dot")
             .attr("cx", function (d) { return self.xscale(d.values.work_year); })
             .attr("cy", function (d) { return self.yscale(d.values.salary); })
-            .attr("r", 5) 
+            .attr("r", 5)
             .attr("fill", "black");
 
         self.svg.append("text")
