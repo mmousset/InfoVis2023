@@ -21,7 +21,7 @@ class multiBarChart {
             .attr('transform',
                 `translate(${self.config.margin.left + marginTicks}, ${self.config.margin.top})`);
         self.inner_width = self.config.width - self.config.margin.left - self.config.margin.right - marginTicks;
-        self.inner_height = self.config.height - self.config.margin.top - self.config.margin.bottom - self.config.margin.top;
+        self.inner_height = self.config.height - self.config.margin.top - self.config.margin.bottom - self.config.margin.top - 20;
 
         self.xscale = d3.scaleBand()
             .range([self.inner_width, 0])
@@ -45,48 +45,52 @@ class multiBarChart {
     update() {
         let self = this;
 
-        // List of subgroups
+        self.chart.selectAll('rect').remove();
+
         self.subgroups = [...new Set(self.data.map(d => d.experience_level))];  // Define subgroups here
 
-        // List of groups
         var groups = [...new Set(self.data.map(d => d.work_year))];
 
-        // Aggregate the data
         var nestedData = Array.from(d3.group(self.data, d => d.work_year), ([key, values]) => {
             let valueMap = new Map(d3.rollup(values, v => d3.mean(v, d => d.salary_in_usd), d => d.experience_level));
-            return {key, values: self.subgroups.map(name => valueMap.get(name) || 0)};
+            return { key, values: self.subgroups.map(name => valueMap.get(name) || 0) };
         });
-self.data.nestedData = nestedData;
-        // Now, nestedData contains the aggregated salary_in_usd for each work_year and experience_level
+        self.data.nestedData = nestedData;
 
         self.xscale.domain(groups);
-        self.xSubgroup.domain(self.subgroups).range([0, self.xscale.bandwidth()]);  // Use subgroups here
-        self.yscale.domain([0, d3.max(nestedData, d => d3.max(d.values))]);  // Use nestedData here
-
+        self.xSubgroup.domain(self.subgroups).range([0, self.xscale.bandwidth()]);  
+        self.yscale.domain([0, d3.max(nestedData, d => d3.max(d.values))]);  
         self.render();
     }
 
     render() {
         let self = this;
 
-        // Add one bar for each subgroup
         self.chart.append("g")
             .selectAll("g")
-            .data(self.data.nestedData)  // Use nestedData here
+            .data(self.data.nestedData) 
             .join("g")
-            .attr("transform", d => `translate(${self.xscale(d.key)}, 0)`)  // Use key here
+            .attr("transform", d => `translate(${self.xscale(d.key)}, 0)`)  
             .selectAll("rect")
-            .data(function(d) { 
-                return d.values.map(function(value, i) { 
-                    return {key: self.subgroups[i], value: value}; 
-                }); 
-            })  // Use values here
+            .data(function (d) {
+                return d.values.map(function (value, i) {
+                    return { key: self.subgroups[i], value: value };
+                });
+            }) 
             .join("rect")
             .attr("x", d => self.xSubgroup(d.key))
             .attr("y", d => self.yscale(d.value))
             .attr("width", self.xSubgroup.bandwidth())
             .attr("height", d => self.inner_height - self.yscale(d.value))
             .attr("fill", d => self.colorScale(d.key));
+
+        self.svg.append("text")
+            .attr("x", self.config.width / 2)
+            .attr("y", self.config.height - self.config.margin.bottom)
+            .attr("text-anchor", "middle")
+            .style("font-size", "16px")
+            .text("Salary Average through the Year and Experience Level");
+
         self.xaxis_group.call(self.xaxis);
         self.yaxis_group.call(self.yaxis);
     }
