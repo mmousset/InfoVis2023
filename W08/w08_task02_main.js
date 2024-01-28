@@ -35,7 +35,7 @@ class lineChart {
             .attr('transform', `translate(20, ${self.inner_height})`);
         self.yaxis = d3.axisLeft(self.yscale);
         self.yaxis_group = self.chart.append('g')
-            .attr('transform', `translate(20, 0)`);;
+            .attr('transform', `translate(20, 0)`);
 
     }
 
